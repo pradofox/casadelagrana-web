@@ -1,0 +1,906 @@
+---
+const title = "Casa de la Grana · Centro cultural";
+const description = "Centro cultural dedicado a la preservación de la grana cochinilla y su significado histórico. Naturaleza, historia y cultura en Oaxaca.";
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="/images/img-05.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/images/isotipo-rojo.svg" />
+  <style>
+    /* ---- FONTS ---- */
+    @font-face {
+      font-family: 'ChivoMono';
+      src: url('/fonts/ChivoMono-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Koper';
+      src: url('/fonts/Koper-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ---- TOKENS ---- */
+    :root {
+      /* Surfaces */
+      --color-surface-base:    #000000;
+      --color-surface-content: #f7f3f0;
+      --color-surface-accent:  #a31300;
+
+      /* Text */
+      --color-text-primary:    #f7f3f0;
+      --color-text-secondary:  #231c1a;
+      --color-accent-carmine:  #a31300;
+      --color-focus-ring:      #a31300;
+      --color-disabled-text:   #8a8079;
+      --color-disabled-surface:#3a3330;
+
+      /* Typography */
+      --font-family-primary: 'ChivoMono', monospace;
+      --font-family-display: 'Koper', serif;
+
+      --font-size-xs:  9px;
+      --font-size-sm:  12px;
+      --font-size-md:  14px;
+      --font-size-lg:  16px;
+      --font-size-xl:  18px;
+      --font-size-2xl: 20px;
+      --font-size-3xl: 28px;
+      --font-size-4xl: 60px;
+
+      --font-weight-base:   100;
+      --font-weight-medium: 400;
+
+      --line-height-base:  24px;
+      --line-height-tight: 1.1;
+      --line-height-loose: 1.6;
+
+      /* Spacing */
+      --space-1: 40px;
+      --space-2: 44px;
+      --space-3: 80px;
+      --space-4: 88px;
+      --space-inline-xs: 4px;
+      --space-inline-sm: 8px;
+      --space-inline-md: 16px;
+      --space-inline-lg: 24px;
+
+      /* Radius */
+      --radius-xs:   2px;
+      --radius-sm:   4px;
+      --radius-md:   40px;
+      --radius-full: 9999px;
+
+      /* Motion - single duration */
+      --motion-duration:        400ms;
+      --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --motion-easing-enter:    cubic-bezier(0, 0, 0.2, 1);
+      --motion-easing-exit:     cubic-bezier(0.4, 0, 1, 1);
+    }
+
+    /* ---- REDUCED MOTION ---- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration:  0.01ms !important;
+      }
+    }
+
+    /* ---- RESET ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+    body {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      background: var(--color-surface-content);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-loose);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- NAV TOP ---- */
+    .nav-top {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-inline-md) var(--space-1);
+      background: transparent;
+      transition: background var(--motion-duration) var(--motion-easing-standard),
+                  border-color var(--motion-duration) var(--motion-easing-standard);
+    }
+    .nav-top.scrolled {
+      background: rgba(247, 243, 240, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(35, 28, 26, 0.07);
+    }
+    .nav-logo-link img {
+      height: 20px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+      transition: filter var(--motion-duration) var(--motion-easing-standard);
+    }
+    .nav-top.scrolled .nav-logo-link img { filter: none; }
+    .nav-links {
+      display: flex;
+      gap: var(--space-inline-lg);
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-sm);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247, 243, 240, 0.65);
+      transition: color var(--motion-duration) var(--motion-easing-standard);
+    }
+    .nav-top.scrolled .nav-links a { color: rgba(35, 28, 26, 0.55); }
+    .nav-links a:hover { color: var(--color-text-primary); }
+    .nav-top.scrolled .nav-links a:hover { color: var(--color-text-secondary); }
+
+    /* ---- HERO ---- */
+    .hero {
+      background: var(--color-surface-base);
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 180px 1fr;
+      align-items: center;
+      gap: var(--space-inline-lg);
+      padding: var(--space-3) var(--space-1) var(--space-1);
+    }
+    .hero-word-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      align-self: flex-start;
+      padding-top: 8vh;
+    }
+    .hero-word-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--space-1);
+      text-align: right;
+      align-self: flex-end;
+      padding-bottom: 8vh;
+    }
+    .hero-display {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-4xl);
+      letter-spacing: 0;
+      color: var(--color-text-primary);
+      line-height: var(--line-height-tight);
+      display: block;
+    }
+    .hero-tag {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(247, 243, 240, 0.35);
+      line-height: 2;
+    }
+    .hero-circles {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-inline-sm);
+    }
+    .hero-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid rgba(247, 243, 240, 0.1);
+      flex-shrink: 0;
+    }
+    .hero-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-footer {
+      position: absolute;
+      bottom: var(--space-inline-lg);
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(247, 243, 240, 0.22);
+    }
+
+    /* ---- TICKER ---- */
+    .ticker {
+      overflow: hidden;
+      background: var(--color-surface-accent);
+      padding: 0.75rem 0;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 32s linear infinite;
+    }
+    .ticker-track span {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      padding-right: var(--space-1);
+    }
+    .ticker-track .sep {
+      color: rgba(247, 243, 240, 0.35);
+      padding-right: var(--space-1);
+    }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ---- SECTION LABEL ---- */
+    .section-label {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--color-accent-carmine);
+      margin-bottom: var(--space-inline-lg);
+    }
+
+    /* ---- MANIFESTO ---- */
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .manifesto-text {
+      padding: var(--space-3) var(--space-1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .manifesto-heading {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-3xl);
+      line-height: var(--line-height-tight);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-inline-lg);
+    }
+    .manifesto-heading em {
+      color: var(--color-accent-carmine);
+      font-style: italic;
+    }
+    .manifesto-body {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-loose);
+      color: rgba(35, 28, 26, 0.75);
+      max-width: 44ch;
+    }
+    .manifesto-body p + p { margin-top: 1em; }
+    .manifesto-img {
+      overflow: hidden;
+      min-height: 540px;
+    }
+    .manifesto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--motion-duration) var(--motion-easing-standard);
+    }
+    .manifesto-img:hover img { transform: scale(1.04); }
+
+    /* ---- QUOTE ---- */
+    .quote-block {
+      background: var(--color-surface-base);
+      padding: var(--space-3) var(--space-1);
+      text-align: center;
+    }
+    .quote-text {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-3xl);
+      line-height: 1.45;
+      color: var(--color-text-primary);
+      max-width: 860px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+    .quote-attr {
+      display: block;
+      margin-top: var(--space-1);
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(247, 243, 240, 0.3);
+      font-style: normal;
+    }
+
+    /* ---- SUAJE / PARALLAX ---- */
+    .suaje-section {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-surface-content);
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+    .suaje-blob {
+      position: absolute;
+      left: -8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55vw;
+      max-width: 720px;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .suaje-blob img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .suaje-content {
+      position: relative;
+      z-index: 1;
+      margin-left: auto;
+      padding: var(--space-3) var(--space-1) var(--space-3) 0;
+      max-width: 500px;
+    }
+    .suaje-heading {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-3xl);
+      line-height: var(--line-height-tight);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-inline-md);
+    }
+    .suaje-sub {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(35, 28, 26, 0.45);
+      margin-bottom: var(--space-inline-lg);
+    }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-inline-md) var(--space-1);
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-md);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      min-height: var(--space-2);
+      transition: background var(--motion-duration) var(--motion-easing-standard),
+                  color var(--motion-duration) var(--motion-easing-standard),
+                  border-color var(--motion-duration) var(--motion-easing-standard);
+    }
+    .btn-primary {
+      background: var(--color-surface-accent);
+      color: var(--color-text-primary);
+      border-color: var(--color-surface-accent);
+    }
+    .btn-primary:hover { background: #8a1000; border-color: #8a1000; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-text-secondary);
+      border-color: var(--color-text-secondary);
+    }
+    .btn-ghost:hover { color: var(--color-accent-carmine); border-color: var(--color-accent-carmine); }
+    .btn-ghost-inv {
+      background: transparent;
+      color: var(--color-text-primary);
+      border-color: rgba(247, 243, 240, 0.4);
+    }
+    .btn-ghost-inv:hover { background: var(--color-surface-content); color: var(--color-text-secondary); border-color: var(--color-surface-content); }
+
+    /* ---- GALLERY ---- */
+    .gallery-section {
+      padding: var(--space-3) var(--space-1) var(--space-1);
+      background: var(--color-surface-content);
+    }
+    .gallery-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-inline-lg);
+    }
+    .gallery-title {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-3xl);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+    .gallery-count {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-disabled-text);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-inline-xs);
+    }
+    .gallery-item {
+      overflow: hidden;
+      background: rgba(35, 28, 26, 0.05);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--motion-duration) var(--motion-easing-standard);
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+
+    .products-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-inline-xs);
+      margin-top: var(--space-inline-xs);
+    }
+    .product-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: rgba(35, 28, 26, 0.03);
+    }
+    .product-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--motion-duration) var(--motion-easing-standard);
+    }
+    .product-item:hover img { transform: scale(1.04); }
+
+    /* ---- BRIDGE ---- */
+    .bridge {
+      background: var(--color-surface-base);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .bridge-text {
+      padding: var(--space-3) var(--space-1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bridge .section-label { color: rgba(247, 243, 240, 0.45); }
+    .bridge-heading {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-3xl);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-inline-md);
+      line-height: var(--line-height-tight);
+    }
+    .bridge-body {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-loose);
+      color: rgba(247, 243, 240, 0.5);
+      margin-bottom: var(--space-inline-lg);
+      max-width: 44ch;
+    }
+    .bridge-links { display: flex; gap: var(--space-inline-sm); flex-wrap: wrap; }
+    .bridge-img {
+      overflow: hidden;
+      min-height: 500px;
+    }
+    .bridge-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--color-surface-content);
+      border-top: 1px solid rgba(35, 28, 26, 0.08);
+      padding: var(--space-1) var(--space-1);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: var(--space-inline-lg);
+    }
+    .footer-contact address {
+      font-style: normal;
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.06em;
+      line-height: 2.2;
+      color: rgba(35, 28, 26, 0.5);
+    }
+    .footer-contact a:hover { color: var(--color-accent-carmine); }
+    .footer-logo-wrap { text-align: center; }
+    .footer-logo-wrap img { height: 26px; width: auto; margin: 0 auto; }
+    .footer-sub {
+      display: block;
+      margin-top: var(--space-inline-sm);
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(35, 28, 26, 0.28);
+      text-align: center;
+    }
+    .footer-copy {
+      text-align: right;
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.1em;
+      color: rgba(35, 28, 26, 0.28);
+    }
+
+    /* ---- FLOATING NAV ---- */
+    .floating-nav {
+      position: fixed;
+      bottom: var(--space-inline-lg);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 98;
+      display: flex;
+      align-items: center;
+      background: rgba(247, 243, 240, 0.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(35, 28, 26, 0.1);
+      border-radius: var(--radius-md);
+      white-space: nowrap;
+    }
+    .floating-nav a {
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-base);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(35, 28, 26, 0.55);
+      padding: var(--space-inline-md) var(--space-inline-lg);
+      transition: color var(--motion-duration) var(--motion-easing-standard);
+      display: block;
+      min-height: var(--space-2);
+      display: flex;
+      align-items: center;
+    }
+    .floating-nav a:hover { color: var(--color-text-secondary); }
+    .floating-nav a + a { border-left: 1px solid rgba(35, 28, 26, 0.08); }
+    .floating-nav a:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+    .floating-nav a:last-child  { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .nav-top { padding: var(--space-inline-sm) var(--space-inline-lg); }
+      .nav-links { display: none; }
+      .floating-nav { display: none; }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-3) var(--space-inline-lg) var(--space-1);
+        gap: var(--space-inline-lg);
+      }
+      .hero-display { font-size: var(--font-size-2xl); }
+      .hero-word-left  { align-self: auto; padding-top: 0; }
+      .hero-word-right { align-items: flex-start; text-align: left; align-self: auto; padding-bottom: 0; }
+      .hero-circles {
+        flex-direction: row;
+        justify-content: center;
+        order: -1;
+      }
+      .hero-circle { width: 90px; height: 90px; }
+
+      .manifesto { grid-template-columns: 1fr; }
+      .manifesto-text { padding: var(--space-1) var(--space-inline-lg); }
+      .manifesto-heading { font-size: var(--font-size-2xl); }
+      .manifesto-img { min-height: 280px; order: -1; }
+
+      .quote-block { padding: var(--space-1) var(--space-inline-lg); }
+      .quote-text  { font-size: var(--font-size-2xl); }
+
+      .suaje-section { min-height: auto; }
+      .suaje-blob { display: none; }
+      .suaje-content { margin: 0; padding: var(--space-1) var(--space-inline-lg); max-width: 100%; }
+      .suaje-heading { font-size: var(--font-size-2xl); }
+
+      .gallery-section { padding: var(--space-1) var(--space-inline-lg); }
+      .gallery-title  { font-size: var(--font-size-2xl); }
+      .gallery-grid   { grid-template-columns: repeat(2, 1fr); }
+      .products-strip { grid-template-columns: repeat(2, 1fr); }
+
+      .bridge { grid-template-columns: 1fr; }
+      .bridge-text { padding: var(--space-1) var(--space-inline-lg); }
+      .bridge-heading { font-size: var(--font-size-2xl); }
+      .bridge-img { min-height: 260px; }
+
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-copy { text-align: center; }
+      .footer-contact address { text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV TOP -->
+  <nav class="nav-top" id="nav-top" aria-label="Principal">
+    <a href="/" class="nav-logo-link" aria-label="Casa de la Grana - inicio">
+      <img src="/images/logo-negro.svg" alt="Casa de la Grana" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">Nocheztlicalli</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+
+      <div class="hero-word-left">
+        <span class="hero-display">Descubre</span>
+        <p class="hero-tag">Naturaleza<br/>Historia<br/>Cultura</p>
+      </div>
+
+      <div class="hero-circles">
+        <div class="hero-circle">
+          <img src="/images/img-06.jpg" alt="Grana cochinilla" loading="eager" />
+        </div>
+        <div class="hero-circle">
+          <img src="/images/img-09.jpg" alt="Tintes naturales" loading="eager" />
+        </div>
+        <div class="hero-circle">
+          <img src="/images/img-10.jpg" alt="Arte oaxaqueño" loading="eager" />
+        </div>
+      </div>
+
+      <div class="hero-word-right">
+        <p class="hero-tag">Tradición<br/>Arte<br/>Preservación</p>
+        <span class="hero-display">El Secreto</span>
+      </div>
+
+    </div>
+    <div class="hero-footer">
+      <p class="hero-eyebrow">Centro Cultural &middot; Casa de la Grana &middot; Oaxaca</p>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Tradición</span><span class="sep">&middot;</span>
+      <span>Arte</span><span class="sep">&middot;</span>
+      <span>Grana Cochinilla</span><span class="sep">&middot;</span>
+      <span>Oaxaca</span><span class="sep">&middot;</span>
+      <span>Nocheztlicalli</span><span class="sep">&middot;</span>
+      <span>Tintes Naturales</span><span class="sep">&middot;</span>
+      <span>Preservación</span><span class="sep">&middot;</span>
+      <span>Patrimonio</span><span class="sep">&middot;</span>
+      <span>Tradición</span><span class="sep">&middot;</span>
+      <span>Arte</span><span class="sep">&middot;</span>
+      <span>Grana Cochinilla</span><span class="sep">&middot;</span>
+      <span>Oaxaca</span><span class="sep">&middot;</span>
+      <span>Nocheztlicalli</span><span class="sep">&middot;</span>
+      <span>Tintes Naturales</span><span class="sep">&middot;</span>
+      <span>Preservación</span><span class="sep">&middot;</span>
+      <span>Patrimonio</span><span class="sep">&middot;</span>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="manifesto-text">
+      <p class="section-label">01 · Nuestro pasado en la actualidad</p>
+      <h2 class="manifesto-heading">La grana que<br/>colorea nuestra<br/><em>historia</em></h2>
+      <div class="manifesto-body">
+        <p>Casa de la Grana preserva la práctica tradicional del cultivo de la grana cochinilla y comparte su significado histórico. Un espacio donde el conocimiento científico se entrelaza con la experiencia creativa.</p>
+        <p>Desde Oaxaca, rescatamos el legado de Nocheztlicalli - el insecto sagrado que tiñó imperios y continúa siendo fuente de vida y arte para nuestra comunidad.</p>
+      </div>
+    </div>
+    <div class="manifesto-img">
+      <img src="/images/img-11.jpg" alt="Nopal con cochinilla" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-block">
+    <blockquote>
+      <p class="quote-text">"nuestras raíces no solo nos definen, sino que la naturaleza nos ofrece enseñanzas"</p>
+      <cite class="quote-attr">Nocheztlicalli &middot; Casa de la Grana</cite>
+    </blockquote>
+  </section>
+
+  <!-- SUAJE / PARALLAX -->
+  <section class="suaje-section" id="suaje-section">
+    <div class="suaje-blob" id="suaje-blob" aria-hidden="true">
+      <img src="/images/isotipo-rojo.svg" alt="" />
+    </div>
+    <div class="suaje-content">
+      <p class="section-label">02 · El color del legado</p>
+      <h2 class="suaje-heading">Descubre el color<br/>del legado<br/>mexicano</h2>
+      <p class="suaje-sub">Junto a las guardianas del legado oaxaqueño</p>
+      <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Visítanos</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="gallery-header">
+      <h2 class="gallery-title">Galería</h2>
+      <span class="gallery-count">Proyecto CEDIM &middot; 2024</span>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item wide" style="aspect-ratio:16/7;">
+        <img src="/images/img-05.jpg" alt="Casa de la Grana" loading="lazy" />
+      </div>
+      <div class="gallery-item tall" style="aspect-ratio:2/3;">
+        <img src="/images/img-08.jpg" alt="Grana cochinilla" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:1;">
+        <img src="/images/img-06.jpg" alt="Tintes naturales" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:1;">
+        <img src="/images/img-07.jpg" alt="Textiles Oaxaca" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:1;">
+        <img src="/images/img-09.jpg" alt="Cochinilla" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:1;">
+        <img src="/images/img-10.jpg" alt="Arte natural" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:3/4;">
+        <img src="/images/img-15.jpg" alt="Proceso de tinte" loading="lazy" />
+      </div>
+      <div class="gallery-item" style="aspect-ratio:3/2;">
+        <img src="/images/img-16.jpg" alt="Taller" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="products-strip">
+      <div class="product-item">
+        <img src="/images/brand-01.png" alt="Empaque grana" loading="lazy" />
+      </div>
+      <div class="product-item">
+        <img src="/images/brand-02.png" alt="Empaque añil" loading="lazy" />
+      </div>
+      <div class="product-item">
+        <img src="/images/brand-03.png" alt="Flyer teñido" loading="lazy" />
+      </div>
+      <div class="product-item">
+        <img src="/images/brand-04.png" alt="Flyer shibori" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIDGE -->
+  <section class="bridge">
+    <div class="bridge-text">
+      <p class="section-label">03 · El proyecto vive</p>
+      <h2 class="bridge-heading">Visita<br/>Nocheztlicalli</h2>
+      <p class="bridge-body">Casa de la Grana nació como proyecto académico en CEDIM 2024. Hoy, la investigación y el espíritu continúan vivos a través de Nocheztlicalli.</p>
+      <div class="bridge-links">
+        <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">nocheztlicalli.com</a>
+        <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost-inv">@nocheztlicalli</a>
+      </div>
+    </div>
+    <div class="bridge-img">
+      <img src="/images/img-13.png" alt="Nocheztlicalli" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacto">
+    <div class="footer-contact">
+      <p class="section-label" style="margin-bottom:var(--space-inline-sm);">Contacto</p>
+      <address>
+        Nardos #616, Col. Ampliación Santa Lucía<br/>
+        Santa Lucía del Camino, Oaxaca, México<br/><br/>
+        <a href="tel:9515702818">951 570 2818</a><br/>
+        <a href="mailto:casadelagrana@gmail.com">casadelagrana@gmail.com</a>
+      </address>
+    </div>
+    <div class="footer-logo-wrap">
+      <img src="/images/logo-negro.svg" alt="Casa de la Grana" />
+      <span class="footer-sub">Centro cultural &middot; Oaxaca</span>
+    </div>
+    <div class="footer-copy">
+      <p>&copy; {new Date().getFullYear()}</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING NAV (desktop) -->
+  <nav class="floating-nav" aria-label="Accesos rápidos">
+    <a href="https://nocheztlicalli.com/visita" target="_blank" rel="noopener noreferrer">Visítanos</a>
+    <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">Tienda</a>
+    <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <script>
+    import Lenis from 'lenis';
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    const nav = document.getElementById('nav-top');
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 60);
+
+      const blob = document.getElementById('suaje-blob');
+      const section = document.getElementById('suaje-section');
+      if (blob && section) {
+        const rect = section.getBoundingClientRect();
+        const progress = -rect.top / window.innerHeight;
+        blob.style.transform = `translateY(calc(-50% + ${progress * 90}px))`;
+      }
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  </script>
+
+</body>
+</html>
