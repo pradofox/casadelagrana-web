@@ -103,28 +103,84 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       width: auto;
       display: block;
     }
-    .nav-right {
-      display: flex;
+    .nav-menu-btn {
+      background: none;
+      border: 0;
+      padding: 6px 8px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      gap: var(--space-md);
-    }
-    .nav-lang {
+      gap: 8px;
       font-family: var(--font-mono);
       font-weight: var(--w-base);
       font-size: 11px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-dark);
+      transition: color var(--dur) var(--ease);
     }
-    .nav-lang strong { font-weight: var(--w-medium); }
-    .nav-cart {
-      width: 32px; height: 32px;
-      display: inline-flex;
+    .nav-menu-btn:hover { color: var(--text-grana); }
+    .nav-menu-btn .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--text-grana);
+      display: inline-block;
+      transition: transform var(--dur) var(--ease);
+    }
+    body.menu-open .nav-menu-btn .dot { transform: scale(1.6); }
+
+    /* ---- MENU OVERLAY ---- */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--surface-cream);
+      display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-grana);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--dur) var(--ease), visibility 0s var(--dur);
     }
-    .nav-cart svg { width: 22px; height: 22px; }
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity var(--dur) var(--ease), visibility 0s 0s;
+    }
+    .menu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+    .menu-item {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      display: inline-block;
+      position: relative;
+      transition: color var(--dur) var(--ease);
+    }
+    .menu-item::before { content: "("; }
+    .menu-item::after  { content: ")"; }
+    .menu-item::before,
+    .menu-item::after {
+      display: inline-block;
+      color: var(--text-grana);
+      transition: padding var(--dur) var(--ease);
+    }
+    .menu-item:hover::before { padding-right: 0.5em; }
+    .menu-item:hover::after  { padding-left: 0.5em; }
+    .menu-item:hover { color: var(--text-grana); }
 
     /* ---- HERO ---- */
     .hero {
@@ -593,6 +649,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       line-height: 1.05;
       color: var(--text-dark);
       letter-spacing: 0;
+      text-transform: uppercase;
       grid-row: 1;
     }
     .intro-secondary {
@@ -712,18 +769,23 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     <a href="/" class="nav-logo" aria-label="Casa de la Grana - inicio">
       <img src="/images/logo-rojo.svg" alt="Casa de la Grana" />
     </a>
-    <div class="nav-right">
-      <nav class="nav-lang" aria-label="Idioma">
-        <a href="/" aria-current="false">EN</a><span aria-hidden="true">/</span><a href="/" aria-current="true"><strong>ES</strong></a>
-      </nav>
-      <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="nav-cart" aria-label="Tienda">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 7h14l-1.2 11.4A2 2 0 0 1 15.8 20H8.2a2 2 0 0 1-2-1.6L5 7z"/>
-          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-        </svg>
-      </a>
-    </div>
+    <button class="nav-menu-btn" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-overlay">
+      <span class="label">Menú</span>
+      <span class="dot" aria-hidden="true"></span>
+    </button>
   </nav>
+
+  <!-- MENU OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+    <ul class="menu-list">
+      <li><a href="#visita" class="menu-item">Visítanos</a></li>
+      <li><a href="#unete" class="menu-item">Únete</a></li>
+      <li><a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="menu-item">Tienda</a></li>
+      <li><a href="#legado" class="menu-item">Legado</a></li>
+      <li><a href="#agenda" class="menu-item">Agenda</a></li>
+      <li><a href="#exploradores" class="menu-item">Exploradores</a></li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -790,15 +852,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </div>
   </footer>
 
-  <!-- FLOATING NAV (desktop) -->
-  <nav class="float-nav" aria-label="Accesos rápidos">
-    <a href="#visita">(Visítanos)</a>
-    <a href="#unete">(Únete)</a>
-    <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">(Tienda)</a>
-    <a href="#legado">(Legado)</a>
-    <a href="#agenda">(Agenda)</a>
-    <a href="#exploradores">(Exploradores)</a>
-  </nav>
 
   <script>
     import Lenis from 'lenis';
@@ -817,6 +870,24 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
+
+    // Menu overlay
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const setMenu = (open) => {
+      document.body.classList.toggle('menu-open', open);
+      menuOverlay.classList.toggle('open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuOverlay.setAttribute('aria-hidden', String(!open));
+      menuToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      menuToggle.querySelector('.label').textContent = open ? 'Cerrar' : 'Menú';
+      if (open) lenis.stop(); else lenis.start();
+    };
+    menuToggle.addEventListener('click', () => setMenu(!menuOverlay.classList.contains('open')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('open')) setMenu(false);
+    });
+    menuOverlay.querySelectorAll('.menu-item').forEach(a => a.addEventListener('click', () => setMenu(false)));
   </script>
 
 </body>
