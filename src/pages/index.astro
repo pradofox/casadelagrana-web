@@ -63,7 +63,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       --font-serif:   'Koper', serif;
 
       --w-heavy:  900;
-      --w-base:   100;
+      --w-base:   300;
       --w-medium: 400;
 
       --space-xs:  8px;
@@ -816,6 +816,125 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     }
     .grana-body p + p { margin-top: 1.1em; }
 
+    /* ---- SISTEMA VISUAL ---- */
+    .sistema {
+      background: var(--surface-cream);
+      padding: var(--space-2xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl) var(--space-lg);
+    }
+    .sistema-eyebrow { grid-column: 1; }
+    .sistema-title {
+      grid-column: 1 / -1;
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(3rem, 8vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-top: var(--space-md);
+    }
+    .sistema-body {
+      grid-column: 2;
+      align-self: end;
+      max-width: 46ch;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-top: var(--space-md);
+    }
+
+    .module {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: var(--space-xl);
+      padding-top: var(--space-xl);
+      align-items: start;
+    }
+    .module-label {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-grana);
+    }
+
+    /* Paleta */
+    .paleta {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+    .paleta-chip {
+      display: flex;
+      flex-direction: column;
+    }
+    .paleta-swatch {
+      aspect-ratio: 1;
+      width: 100%;
+    }
+    .paleta-info {
+      padding: var(--space-sm) var(--space-xs) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .paleta-name {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+    }
+    .paleta-hex {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    /* Tipografía */
+    .tipos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+    .tipo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding: var(--space-lg) 0;
+    }
+    .tipo-spec {
+      font-size: clamp(5rem, 9vw, 9rem);
+      line-height: 0.85;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+    }
+    .tipo-koper { font-family: var(--font-serif); font-weight: var(--w-medium); text-transform: uppercase; }
+    .tipo-mono  { font-family: var(--font-mono);  font-weight: var(--w-base); }
+    .tipo-sans  { font-family: var(--font-sans);  font-weight: 300; }
+    .tipo-meta {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tipo-meta span { color: var(--text-muted); letter-spacing: 0.08em; }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .nav { padding: var(--space-sm); }
@@ -959,6 +1078,61 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       <div class="grana-body">
         <p>La grana cochinilla es un insecto parásito del nopal que produce ácido carmínico, fuente del rojo más codiciado del mundo prehispánico. Mesoamérica lo cultivó por siglos antes de que España exportara el secreto a Europa, donde tiñó las vestiduras de papas, reyes y magistrados.</p>
         <p>En Oaxaca permanece viva la práctica del cultivo y la tintorería con grana, tejiéndose entre nopaleras, tinas y manos que la conservan generación tras generación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SISTEMA VISUAL -->
+  <section class="sistema" id="exploradores">
+    <p class="eyebrow sistema-eyebrow">03 / Sistema visual</p>
+    <h2 class="sistema-title">Gramática<br/>del rojo</h2>
+    <p class="sistema-body">Una identidad construida desde la materia: el color de la grana, la huella de la mano que tiñe, la letra que ordena. Cada pieza del sistema visual responde al principio de cuidar el legado y dejarlo respirar.</p>
+
+    <div class="module">
+      <p class="module-label">Paleta</p>
+      <div class="paleta">
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#231C1A"></div>
+          <div class="paleta-info"><span class="paleta-name">Negro Metate</span><span class="paleta-hex">#231C1A</span></div>
+        </div>
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#F7F3F0;border:1px solid rgba(35,28,26,0.08)"></div>
+          <div class="paleta-info"><span class="paleta-name">Blanco Algodón</span><span class="paleta-hex">#F7F3F0</span></div>
+        </div>
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#A31300"></div>
+          <div class="paleta-info"><span class="paleta-name">Rojo Grana</span><span class="paleta-hex">#A31300</span></div>
+        </div>
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#66123C"></div>
+          <div class="paleta-info"><span class="paleta-name">Nduku</span><span class="paleta-hex">#66123C</span></div>
+        </div>
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#E2ACC5"></div>
+          <div class="paleta-info"><span class="paleta-name">Buganvilia</span><span class="paleta-hex">#E2ACC5</span></div>
+        </div>
+        <div class="paleta-chip">
+          <div class="paleta-swatch" style="background:#D87239"></div>
+          <div class="paleta-info"><span class="paleta-name">Achiote</span><span class="paleta-hex">#D87239</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module">
+      <p class="module-label">Tipografía</p>
+      <div class="tipos">
+        <div class="tipo">
+          <div class="tipo-spec tipo-koper">Aa</div>
+          <div class="tipo-meta">Koper<span>Display · Mayúsculas</span></div>
+        </div>
+        <div class="tipo">
+          <div class="tipo-spec tipo-mono">Aa</div>
+          <div class="tipo-meta">Chivo Mono<span>UI · Etiquetas · Adornos</span></div>
+        </div>
+        <div class="tipo">
+          <div class="tipo-spec tipo-sans">Aa</div>
+          <div class="tipo-meta">Chivo Light<span>Cuerpo de texto · 300</span></div>
+        </div>
       </div>
     </div>
   </section>
