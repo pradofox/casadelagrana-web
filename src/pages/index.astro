@@ -1000,7 +1000,8 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: var(--space-md);
+      column-gap: var(--space-md);
+      row-gap: var(--space-2xl);
       margin-top: var(--space-lg);
     }
     .piece {
@@ -1009,17 +1010,16 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       gap: var(--space-sm);
     }
     .piece-img {
+      background: transparent;
       overflow: hidden;
-      background: rgba(35,28,26,0.04);
     }
     .piece-img img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: transform var(--dur) var(--ease);
     }
-    .piece:hover .piece-img img { transform: scale(1.025); }
+    .piece:hover .piece-img img { transform: scale(1.02); }
     .piece-meta {
       display: flex;
       justify-content: space-between;
@@ -1032,16 +1032,12 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       color: var(--text-dark);
     }
     .piece-meta span { color: var(--text-muted); letter-spacing: 0.08em; }
-    .piece-1 { grid-column: span 7; }
-    .piece-1 .piece-img { aspect-ratio: 16/10; }
-    .piece-2 { grid-column: span 5; }
-    .piece-2 .piece-img { aspect-ratio: 16/10; }
-    .piece-3 { grid-column: span 12; }
-    .piece-3 .piece-img { aspect-ratio: 24/5; }
-    .piece-4 { grid-column: span 5; }
-    .piece-4 .piece-img { aspect-ratio: 4/5; }
-    .piece-5 { grid-column: span 7; }
-    .piece-5 .piece-img { aspect-ratio: 7/5; }
+    /* Each piece on its own row, varying widths/positions for editorial rhythm */
+    .piece-1 { grid-column: 1 / span 8;  grid-row: 1; }
+    .piece-2 { grid-column: 8 / span 5;  grid-row: 2; }
+    .piece-3 { grid-column: 1 / -1;      grid-row: 3; }
+    .piece-4 { grid-column: 2 / span 5;  grid-row: 4; }
+    .piece-5 { grid-column: 7 / span 6;  grid-row: 5; }
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
