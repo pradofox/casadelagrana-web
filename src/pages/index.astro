@@ -778,6 +778,78 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .proyecto-body p + p { margin-top: 1.2em; }
     .proyecto-body em { font-style: italic; color: var(--text-grana); }
 
+    /* ---- GRANA / NOCHEZTLICALLI ---- */
+    .grana {
+      background: var(--surface-cream);
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 0;
+      min-height: 92vh;
+      border-top: 1px solid rgba(35,28,26,0.08);
+    }
+    .grana-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .grana-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .grana-content {
+      padding: var(--space-2xl) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      justify-content: space-between;
+    }
+    .grana-eyebrow {
+      align-self: flex-start;
+    }
+    .grana-title {
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(2.5rem, 6vw, 6.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+    }
+    .cedula {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: var(--space-md);
+      row-gap: var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+      padding: var(--space-md) 0;
+      border-top: 1px solid rgba(35,28,26,0.15);
+      border-bottom: 1px solid rgba(35,28,26,0.15);
+      max-width: 480px;
+    }
+    .cedula dt {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-grana);
+      font-size: 9px;
+      align-self: center;
+    }
+    .cedula dd { color: var(--text-dark); margin: 0; }
+    .cedula dd em { font-style: italic; }
+    .grana-body {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      max-width: 50ch;
+    }
+    .grana-body p + p { margin-top: 1.1em; }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .nav { padding: var(--space-sm); }
@@ -900,10 +972,38 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </div>
   </section>
 
+  <!-- LA GRANA / NOCHEZTLICALLI -->
+  <section class="grana" id="legado">
+    <div class="grana-img">
+      <img src="/images/img-15.jpg" alt="Macro de grana cochinilla sobre nopal" loading="lazy" />
+    </div>
+    <div class="grana-content">
+      <div>
+        <p class="eyebrow grana-eyebrow">02 / Nocheztlicalli</p>
+        <h2 class="grana-title">El rojo<br/>que tiñó<br/>imperios</h2>
+      </div>
+      <dl class="cedula">
+        <dt>Especie</dt>
+        <dd><em>Dactylopius coccus</em></dd>
+        <dt>Hábitat</dt>
+        <dd>Nopal — <em>Opuntia ficus-indica</em></dd>
+        <dt>Origen</dt>
+        <dd>Mesoamérica, siglo XV</dd>
+        <dt>Uso</dt>
+        <dd>Tinte natural, pigmento carmesí</dd>
+        <dt>Legado</dt>
+        <dd>Patrimonio cultural mexicano</dd>
+      </dl>
+      <div class="grana-body">
+        <p>La grana cochinilla es un insecto parásito del nopal que produce ácido carmínico, fuente del rojo más codiciado del mundo prehispánico. Mesoamérica lo cultivó por siglos antes de que España exportara el secreto a Europa, donde tiñó las vestiduras de papas, reyes y magistrados.</p>
+        <p>En Oaxaca permanece viva la práctica del cultivo y la tintorería con grana, tejiéndose entre nopaleras, tinas y manos que la conservan generación tras generación.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- BRIDGE -->
   <section class="bridge">
     <div class="bridge-text">
-      <p class="label label-inv">04 · El proyecto vive</p>
       <h2 class="bridge-heading">Visita<br/>Nocheztlicalli</h2>
       <p class="bridge-body">Casa de la Grana nació como proyecto académico en CEDIM 2024. Hoy, la investigación y el espíritu continúan vivos a través de Nocheztlicalli.</p>
       <div class="bridge-btns">
