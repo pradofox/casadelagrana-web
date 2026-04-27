@@ -1044,6 +1044,12 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       /* float nav oculto en móvil */
       .float-nav { display: none; }
 
+      /* HERO: reposicionar tags para no encimarse con las palabras */
+      /* A 375px, font-size del hero-word = 72px, line-height 0.9 → ~65px altura.
+         Palabra top:40px → termina en ~105px. Tag necesita estar debajo de 105px. */
+      .hero-tag-tr { top: 116px; right: var(--space-md); }
+      .hero-tag-bl { bottom: 116px; left: var(--space-md); }
+
       /* INTRO */
       .intro {
         grid-template-columns: 1fr;
