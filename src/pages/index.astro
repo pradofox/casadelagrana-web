@@ -439,7 +439,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     /* ---- TINA Y AMIGOS ---- */
     .tina {
       background: var(--surface-cream);
-      border-top: 1px solid rgba(35,28,26,0.08);
     }
     .tina-inner {
       display: grid;
@@ -519,7 +518,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       background: var(--surface-black);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(247,243,240,0.06);
     }
     .bridge-text {
       padding: var(--space-xl) var(--space-lg);
@@ -556,7 +554,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     /* ---- FOOTER ---- */
     footer {
       background: var(--surface-cream);
-      border-top: 1px solid rgba(35,28,26,0.08);
       padding: var(--space-lg);
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -626,19 +623,16 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       min-height: 92vh;
       display: grid;
       grid-template-columns: 60% 40%;
-      grid-template-rows: 1fr auto;
+      align-items: center;
       overflow: hidden;
-      padding: 0;
+      padding: var(--space-2xl) 0;
     }
     .intro-blob {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
       position: relative;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--space-lg) 0;
     }
     .intro-blob img {
       width: 100%;
@@ -651,66 +645,39 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       display: block;
     }
     .intro-content {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      padding: var(--space-2xl) var(--space-lg) var(--space-lg) 0;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
+      padding: 0 var(--space-lg) 0 0;
+      display: flex;
+      flex-direction: column;
       gap: var(--space-2xl);
+      align-items: stretch;
     }
     .intro-heading {
       font-family: var(--font-serif);
       font-weight: var(--w-medium);
-      font-size: clamp(2rem, 3.4vw, 3.2rem);
-      line-height: 1.05;
+      font-size: clamp(2.4rem, 4.2vw, 4rem);
+      line-height: 1.0;
       color: var(--text-dark);
-      letter-spacing: 0;
+      letter-spacing: -0.005em;
       text-transform: uppercase;
-      grid-row: 1;
     }
     .intro-secondary {
-      grid-row: 3;
-      align-self: end;
-      justify-self: end;
-      max-width: 240px;
+      align-self: flex-end;
+      max-width: 320px;
       display: flex;
       flex-direction: column;
       gap: var(--space-sm);
     }
-    .intro-label {
-      font-family: var(--font-mono);
-      font-weight: var(--w-medium);
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-grana);
-      line-height: 1.5;
-    }
     .intro-body {
-      font-family: var(--font-mono);
-      font-weight: var(--w-base);
-      font-size: 11px;
-      line-height: 1.7;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.75;
       color: var(--text-dark);
     }
     .intro-secondary .btn {
       margin-top: var(--space-sm);
       align-self: flex-start;
     }
-    .intro-footer {
-      grid-column: 1 / -1;
-      grid-row: 2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-md) var(--space-lg);
-      font-family: var(--font-mono);
-      font-weight: var(--w-base);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      color: var(--text-dark);
-    }
-    .intro-footer a:hover { color: var(--text-grana); }
     .btn-square {
       background: transparent;
       color: var(--text-grana);
@@ -785,7 +752,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       grid-template-columns: 5fr 7fr;
       gap: 0;
       min-height: 92vh;
-      border-top: 1px solid rgba(35,28,26,0.08);
     }
     .grana-img {
       overflow: hidden;
@@ -946,14 +912,10 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     <div class="intro-content">
       <h2 class="intro-heading">Descubre<br/>el secreto</h2>
       <div class="intro-secondary">
-        <p class="intro-label">Junto a las guardianas del legado oaxaqueño</p>
+        <p class="eyebrow">Junto a las guardianas del legado oaxaqueño</p>
         <p class="intro-body">Vive una experiencia inolvidable en Casa de la Grana, donde descubrirás el origen del rojo mexicano y otros colores ancestrales que forman parte del legado del México antiguo.</p>
         <a href="#contacto" class="btn btn-square">Visítanos</a>
       </div>
-    </div>
-    <div class="intro-footer">
-      <span>C. Nardos 616, Ampliación Sta Lucía, 71228 Santa Lucía del Camino, Oax.</span>
-      <a href="/">casadelagrana.com</a>
     </div>
   </section>
 
