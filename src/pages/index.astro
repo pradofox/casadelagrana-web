@@ -1044,11 +1044,13 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       /* float nav oculto en móvil */
       .float-nav { display: none; }
 
-      /* HERO: reposicionar tags para no encimarse con las palabras */
-      /* A 375px, font-size del hero-word = 72px, line-height 0.9 → ~65px altura.
-         Palabra top:40px → termina en ~105px. Tag necesita estar debajo de 105px. */
-      .hero-tag-tr { top: 116px; right: var(--space-md); }
-      .hero-tag-bl { bottom: 116px; left: var(--space-md); }
+      /* HERO: font escala con viewport (en lugar de mínimo fijo 4.5rem=72px)
+         17vw → ~64px en 375px, ~54px en 320px.
+         "EL SECRETO" queda en ~103% del viewport = bleed mínimo legible.
+         Tags reposicionados para no encimarse con las palabras. */
+      .hero-word { font-size: clamp(2rem, 17vw, 14rem); }
+      .hero-tag-tr { top: 108px; right: var(--space-md); }
+      .hero-tag-bl { bottom: 108px; left: var(--space-md); }
 
       /* INTRO */
       .intro {
