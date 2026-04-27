@@ -90,122 +90,88 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       position: fixed;
       inset: 0 0 auto;
       z-index: 100;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--space-sm) var(--space-lg);
-      transition: background var(--dur) var(--ease);
-    }
-    .nav.scrolled {
-      background: rgba(247,243,240,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(35,28,26,0.07);
+      padding: 0 var(--space-md);
+      background: var(--surface-cream);
+      border-bottom: 1px solid rgba(35,28,26,0.05);
     }
     .nav-logo img {
       height: 22px;
       width: auto;
-      transition: filter var(--dur) var(--ease);
+      display: block;
     }
-    /* logo stays dark on cream hero; invert only when on dark sections */
-    .nav-links {
+    .nav-right {
       display: flex;
+      align-items: center;
       gap: var(--space-md);
-      list-style: none;
     }
-    .nav-links a {
+    .nav-lang {
       font-family: var(--font-mono);
       font-weight: var(--w-base);
-      font-size: 10px;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-dark);
-      transition: color var(--dur) var(--ease);
     }
-    .nav-links a:hover { color: var(--text-grana); }
+    .nav-lang strong { font-weight: var(--w-medium); }
+    .nav-cart {
+      width: 32px; height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-grana);
+    }
+    .nav-cart svg { width: 22px; height: 22px; }
 
     /* ---- HERO ---- */
     .hero {
-      background: var(--surface-cream);
-      min-height: 100svh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      padding-top: 60px;
       position: relative;
+      min-height: 100svh;
+      background: #000;
       overflow: hidden;
+      padding-top: 56px;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 220px 1fr;
-      align-items: center;
-      padding: var(--space-xl) var(--space-lg) var(--space-lg);
-      gap: var(--space-sm);
+    .hero-bg {
+      position: absolute;
+      inset: 56px 0 0 0;
+      width: 100%;
+      height: calc(100% - 56px);
+      object-fit: cover;
+      z-index: 0;
     }
-    .hero-col-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-self: stretch;
-      padding: var(--space-lg) 0;
-    }
-    .hero-col-right {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-end;
-      text-align: right;
-      align-self: stretch;
-      padding: var(--space-lg) 0;
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100svh - 56px);
     }
     .hero-word {
-      font-family: var(--font-mono);
-      font-weight: var(--w-heavy);
-      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      position: absolute;
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(4.5rem, 13.5vw, 14rem);
       text-transform: uppercase;
-      letter-spacing: -0.02em;
-      line-height: 0.88;
-      color: var(--text-dark);
-      display: block;
+      letter-spacing: -0.01em;
+      line-height: 0.9;
+      color: var(--text-light);
+      white-space: nowrap;
     }
-    .hero-tags {
-      font-family: var(--font-mono);
-      font-weight: var(--w-base);
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      line-height: 2;
-    }
-    .hero-circles {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .hero-circle {
-      width: 160px;
-      height: 160px;
-      border-radius: var(--radius-pill);
-      overflow: hidden;
-      border: 1px solid rgba(35,28,26,0.08);
-      flex-shrink: 0;
-    }
-    .hero-circle img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .hero-bottom {
-      padding: var(--space-sm) var(--space-lg) var(--space-md);
-      display: flex;
-      justify-content: center;
-    }
-    .hero-eyebrow {
+    .hero-word-l { top: var(--space-lg); left: -1.2vw; }
+    .hero-word-r { bottom: var(--space-lg); right: -1.2vw; }
+    .hero-tag {
+      position: absolute;
       font-family: var(--font-mono);
       font-weight: var(--w-base);
-      font-size: 9px;
-      letter-spacing: 0.25em;
+      font-size: 12px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--text-light);
+      white-space: nowrap;
     }
+    .hero-tag-tr { top: calc(var(--space-lg) + 11.5vw); right: var(--space-lg); }
+    .hero-tag-bl { bottom: calc(var(--space-lg) + 11.5vw); left: var(--space-lg); }
 
     /* ---- EXPOSITION ---- */
     .expo {
@@ -567,20 +533,94 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .float-nav a {
       font-family: var(--font-mono);
       font-weight: var(--w-base);
-      font-size: 9px;
-      letter-spacing: 0.16em;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(35,28,26,0.55);
-      padding: 12px var(--space-md);
+      color: var(--text-dark);
+      padding: 14px 18px;
       min-height: 44px;
       display: flex;
       align-items: center;
       transition: color var(--dur) var(--ease);
     }
-    .float-nav a:hover { color: var(--text-dark); }
-    .float-nav a + a { border-left: 1px solid rgba(35,28,26,0.08); }
+    .float-nav a:hover { color: var(--text-grana); }
     .float-nav a:first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
     .float-nav a:last-child  { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+
+    /* ---- INTRO / BIENVENIDA ---- */
+    .intro {
+      position: relative;
+      background: var(--surface-cream);
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      overflow: hidden;
+      padding: var(--space-2xl) 0;
+    }
+    .intro-blob {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .intro-blob img {
+      width: 115%;
+      max-width: none;
+      margin-left: -12%;
+      display: block;
+      filter: drop-shadow(0 0 0 transparent);
+    }
+    .intro-content {
+      padding: 0 var(--space-2xl) 0 var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      max-width: 520px;
+    }
+    .intro-label {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-grana);
+      line-height: 1.6;
+      max-width: 28ch;
+    }
+    .intro-heading {
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(2.5rem, 4.8vw, 4.4rem);
+      line-height: 0.95;
+      color: var(--text-dark);
+      letter-spacing: -0.005em;
+      margin-top: var(--space-xs);
+    }
+    .intro-body {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 42ch;
+      margin-top: var(--space-xs);
+    }
+    .intro-content .btn {
+      margin-top: var(--space-sm);
+      align-self: flex-start;
+    }
+    .btn-outline-grana {
+      background: transparent;
+      color: var(--text-grana);
+      border-color: var(--text-grana);
+    }
+    .btn-outline-grana:hover {
+      background: var(--text-grana);
+      color: var(--text-light);
+      border-color: var(--text-grana);
+    }
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
@@ -639,152 +679,45 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
   <!-- NAV -->
   <nav class="nav" id="nav" aria-label="Principal">
     <a href="/" class="nav-logo" aria-label="Casa de la Grana - inicio">
-      <img src="/images/logo-negro.svg" alt="Casa de la Grana" />
+      <img src="/images/logo-rojo.svg" alt="Casa de la Grana" />
     </a>
-    <ul class="nav-links">
-      <li><a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-      <li><a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">Nocheztlicalli</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
+    <div class="nav-right">
+      <nav class="nav-lang" aria-label="Idioma">
+        <a href="/" aria-current="false">EN</a><span aria-hidden="true">/</span><a href="/" aria-current="true"><strong>ES</strong></a>
+      </nav>
+      <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="nav-cart" aria-label="Tienda">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 7h14l-1.2 11.4A2 2 0 0 1 15.8 20H8.2a2 2 0 0 1-2-1.6L5 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-grid">
-
-      <div class="hero-col-left">
-        <span class="hero-word">Descubre</span>
-        <p class="hero-tags">
-          Naturaleza<br/>
-          Historia<br/>
-          Cultura
-        </p>
-      </div>
-
-      <div class="hero-circles">
-        <div class="hero-circle">
-          <img src="/images/img-06.jpg" alt="Grana cochinilla" loading="eager" />
-        </div>
-        <div class="hero-circle">
-          <img src="/images/img-09.jpg" alt="Tintes naturales" loading="eager" />
-        </div>
-        <div class="hero-circle">
-          <img src="/images/img-10.jpg" alt="Arte oaxaqueño" loading="eager" />
-        </div>
-      </div>
-
-      <div class="hero-col-right">
-        <p class="hero-tags">
-          Tradición<br/>
-          Arte<br/>
-          Preservación
-        </p>
-        <span class="hero-word">El Secreto</span>
-      </div>
-
-    </div>
-    <div class="hero-bottom">
-      <p class="hero-eyebrow">Centro Cultural &middot; Casa de la Grana &middot; Oaxaca</p>
+    <img class="hero-bg" src="/images/img-01-hero.jpg" alt="" loading="eager" />
+    <div class="hero-inner">
+      <span class="hero-word hero-word-l">Descubre</span>
+      <p class="hero-tag hero-tag-tr">Naturaleza, Historia, Cultura</p>
+      <p class="hero-tag hero-tag-bl">Tradición, Arte, Preservación</p>
+      <span class="hero-word hero-word-r">El Secreto</span>
     </div>
   </section>
 
-  <!-- EXPOSITION -->
-  <section class="expo">
-    <div class="expo-text">
-      <p class="label label-inv">01 · Nocheztlicalli</p>
-      <h2 class="expo-heading">Conoce la<br/>exposición<br/>"Nocheztlicalli"</h2>
-      <p class="expo-body">Una experiencia inmersiva que recorre el origen, el cultivo y el poder cultural del color más valioso de la historia mexicana. Visítanos en Santa Lucía del Camino, Oaxaca.</p>
+  <!-- INTRO / BIENVENIDA -->
+  <section class="intro">
+    <div class="intro-blob" aria-hidden="true">
+      <img src="/images/isotipo-rojo.svg" alt="" />
+    </div>
+    <div class="intro-content">
+      <p class="intro-label">Junto a las guardianas del legado oaxaqueño</p>
+      <h2 class="intro-heading">Descubre<br/>el secreto</h2>
+      <p class="intro-body">Vive una experiencia inolvidable en Casa de la Grana, donde descubrirás el origen del rojo mexicano y otros colores ancestrales que forman parte del legado del México antiguo.</p>
       <div>
-        <a href="https://nocheztlicalli.com/visita" target="_blank" rel="noopener noreferrer" class="btn btn-grana">Ver la exposición</a>
+        <a href="#contacto" class="btn btn-outline-grana">Visítanos</a>
       </div>
     </div>
-    <div class="expo-img">
-      <img src="/images/img-05.jpg" alt="Exposición Nocheztlicalli" loading="lazy" />
-    </div>
-  </section>
-
-  <!-- MANIFESTO -->
-  <section class="manifesto">
-    <div class="manifesto-header">
-      <h2 class="manifesto-heading">Nuestro<br/>pasado en<br/>la actualidad</h2>
-      <div class="manifesto-body">
-        <p class="label" style="margin-bottom:1.5rem;">02 · Historia viva</p>
-        <p>Casa de la Grana preserva la práctica tradicional del cultivo de la grana cochinilla y comparte su significado histórico. Un espacio donde el conocimiento científico se entrelaza con la experiencia creativa.</p>
-        <p>Desde Oaxaca, rescatamos el legado de Nocheztlicalli - el insecto sagrado que tiñó imperios y continúa siendo fuente de vida y arte para nuestra comunidad.</p>
-      </div>
-    </div>
-    <div class="manifesto-imgs">
-      <div class="manifesto-img">
-        <img src="/images/img-11.jpg" alt="Nopal con cochinilla" loading="lazy" />
-      </div>
-      <div class="manifesto-img">
-        <img src="/images/img-08.jpg" alt="Grana cochinilla" loading="lazy" />
-      </div>
-      <div class="manifesto-img">
-        <img src="/images/img-07.jpg" alt="Textiles naturales" loading="lazy" />
-      </div>
-    </div>
-  </section>
-
-  <!-- NUESTROS FAVORITOS -->
-  <section class="favoritos">
-    <div class="favoritos-grid">
-      <div>
-        <span class="favoritos-word">Nuestros</span>
-      </div>
-      <div class="favoritos-cards">
-        <article class="product-card">
-          <div class="product-img">
-            <img src="/images/brand-01.png" alt="Grana Cochinilla — polvo puro" loading="lazy" />
-          </div>
-          <p class="product-name">Grana Cochinilla</p>
-          <p class="product-detail">Polvo puro · 50g</p>
-        </article>
-        <article class="product-card">
-          <div class="product-img">
-            <img src="/images/brand-02.png" alt="Kit tinte natural" loading="lazy" />
-          </div>
-          <p class="product-name">Kit Tinte Natural</p>
-          <p class="product-detail">Incluye fijador</p>
-        </article>
-      </div>
-      <div>
-        <span class="favoritos-word right">Favoritos</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TINA Y AMIGOS -->
-  <section class="tina">
-    <div class="tina-inner">
-      <div class="tina-text">
-        <p class="label">03 · El proceso</p>
-        <h2 class="tina-heading">Tina<br/>y amigos</h2>
-        <p class="tina-sub">La tina de tinte, el nopal, la cochinilla y las manos de quienes los cuidan. El proceso detrás del color más antiguo de México.</p>
-        <div>
-          <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">Conocer más</a>
-        </div>
-      </div>
-      <div class="tina-imgs">
-        <div class="tina-img">
-          <img src="/images/img-12.jpg" alt="Proceso de tinte" loading="lazy" />
-        </div>
-        <div class="tina-img">
-          <img src="/images/img-14.jpg" alt="Nopal con cochinilla" loading="lazy" />
-        </div>
-        <div class="tina-img">
-          <img src="/images/img-15.jpg" alt="Taller de tinte" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUOTE -->
-  <section class="quote">
-    <blockquote>
-      <p class="quote-text">"nuestras raíces no solo nos definen, sino que la naturaleza nos ofrece enseñanzas"</p>
-      <cite class="quote-attr">Nocheztlicalli &middot; Casa de la Grana</cite>
-    </blockquote>
   </section>
 
   <!-- BRIDGE -->
@@ -824,10 +757,12 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
   <!-- FLOATING NAV (desktop) -->
   <nav class="float-nav" aria-label="Accesos rápidos">
-    <a href="https://nocheztlicalli.com/visita" target="_blank" rel="noopener noreferrer">Visítanos</a>
-    <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">Tienda</a>
-    <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer">Instagram</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#visita">(Visítanos)</a>
+    <a href="#unete">(Únete)</a>
+    <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">(Tienda)</a>
+    <a href="#legado">(Legado)</a>
+    <a href="#agenda">(Agenda)</a>
+    <a href="#exploradores">(Exploradores)</a>
   </nav>
 
   <script>
@@ -838,6 +773,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+    window.__lenis = lenis;
 
     const nav = document.getElementById('nav');
     lenis.on('scroll', ({ scroll }) => {
