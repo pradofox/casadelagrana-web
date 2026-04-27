@@ -520,28 +520,42 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       grid-template-columns: 1fr 1fr;
     }
     .bridge-text {
-      padding: var(--space-xl) var(--space-lg);
+      padding: var(--space-2xl) var(--space-lg);
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: var(--space-md);
     }
+    .bridge-eyebrow { color: rgba(247,243,240,0.6); }
     .bridge-heading {
-      font-family: var(--font-mono);
-      font-weight: var(--w-heavy);
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(3rem, 7vw, 7rem);
       text-transform: uppercase;
       letter-spacing: -0.01em;
       line-height: 0.9;
       color: var(--text-light);
     }
     .bridge-body {
-      font-size: 12px;
-      line-height: 1.8;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
       color: var(--text-muted-inv);
-      max-width: 40ch;
+      max-width: 42ch;
     }
-    .bridge-btns { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+    .bridge-btns { display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md); }
+    .btn-square-light {
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid var(--text-light);
+      border-radius: 0;
+      padding: 10px 22px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      min-height: 36px;
+    }
+    .btn-square-light:hover { background: var(--text-light); color: var(--text-dark); }
     .bridge-img {
       overflow: hidden;
       min-height: 480px;
@@ -554,34 +568,50 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     /* ---- FOOTER ---- */
     footer {
       background: var(--surface-cream);
-      padding: var(--space-lg);
+      padding: var(--space-2xl) var(--space-lg) var(--space-lg);
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: var(--space-md);
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: start;
+      gap: var(--space-lg);
     }
-    .footer-contact {
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      line-height: 2;
-      color: var(--text-muted);
-    }
-    .footer-contact a:hover { color: var(--text-grana); }
-    .footer-logo img { height: 24px; width: auto; display: block; margin: 0 auto; }
-    .footer-sub {
-      display: block;
-      text-align: center;
-      margin-top: 6px;
+    .footer-col h3 {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
       font-size: 9px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(35,28,26,0.25);
+      color: var(--text-grana);
+      margin-bottom: var(--space-md);
     }
+    .footer-col p,
+    .footer-col address,
+    .footer-col a {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-dark);
+    }
+    .footer-col a { display: block; }
+    .footer-col a:hover { color: var(--text-grana); }
+    .footer-bottom {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-2xl);
+      margin-top: var(--space-lg);
+      border-top: 1px solid rgba(35,28,26,0.08);
+    }
+    .footer-bottom-logo img { height: 22px; width: auto; display: block; }
     .footer-copy {
-      text-align: right;
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      color: rgba(35,28,26,0.25);
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
     /* ---- FLOATING NAV ---- */
@@ -935,6 +965,84 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     }
     .tipo-meta span { color: var(--text-muted); letter-spacing: 0.08em; }
 
+    /* ---- APLICACIONES ---- */
+    .aplicaciones {
+      background: var(--surface-cream);
+      padding: var(--space-2xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl) var(--space-lg);
+    }
+    .aplicaciones-eyebrow { grid-column: 1; }
+    .aplicaciones-title {
+      grid-column: 1 / -1;
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(3rem, 8vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-top: var(--space-md);
+    }
+    .aplicaciones-body {
+      grid-column: 2;
+      align-self: end;
+      max-width: 46ch;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-top: var(--space-md);
+    }
+    .gallery {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .piece {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .piece-img {
+      overflow: hidden;
+      background: rgba(35,28,26,0.04);
+    }
+    .piece-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--dur) var(--ease);
+    }
+    .piece:hover .piece-img img { transform: scale(1.025); }
+    .piece-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+    }
+    .piece-meta span { color: var(--text-muted); letter-spacing: 0.08em; }
+    .piece-1 { grid-column: span 7; }
+    .piece-1 .piece-img { aspect-ratio: 16/10; }
+    .piece-2 { grid-column: span 5; }
+    .piece-2 .piece-img { aspect-ratio: 16/10; }
+    .piece-3 { grid-column: span 12; }
+    .piece-3 .piece-img { aspect-ratio: 24/5; }
+    .piece-4 { grid-column: span 5; }
+    .piece-4 .piece-img { aspect-ratio: 4/5; }
+    .piece-5 { grid-column: span 7; }
+    .piece-5 .piece-img { aspect-ratio: 7/5; }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .nav { padding: var(--space-sm); }
@@ -1004,7 +1112,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
   <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
     <ul class="menu-list">
       <li><a href="#visita" class="menu-item">Visítanos</a></li>
-      <li><a href="#unete" class="menu-item">Únete</a></li>
+      <li><a href="#contacto" class="menu-item">Únete</a></li>
       <li><a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="menu-item">Tienda</a></li>
       <li><a href="#legado" class="menu-item">Legado</a></li>
       <li><a href="#agenda" class="menu-item">Agenda</a></li>
@@ -1137,14 +1245,45 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </div>
   </section>
 
+  <!-- APLICACIONES -->
+  <section class="aplicaciones" id="agenda">
+    <p class="eyebrow aplicaciones-eyebrow">04 / Aplicaciones</p>
+    <h2 class="aplicaciones-title">El sistema<br/>en materia</h2>
+    <p class="aplicaciones-body">El branding cobra cuerpo en piezas impresas, packaging, posters y la comunicación cotidiana del centro. Una gramática que convive con la mancha, el papel y el color de Oaxaca.</p>
+
+    <div class="gallery">
+      <article class="piece piece-1">
+        <div class="piece-img"><img src="/images/app-publicitario.png" alt="Pieza publicitaria con blob de grana" loading="lazy" /></div>
+        <div class="piece-meta"><span>Pieza publicitaria</span><span>2024</span></div>
+      </article>
+      <article class="piece piece-2">
+        <div class="piece-img"><img src="/images/app-master.png" alt="Master gráfico" loading="lazy" /></div>
+        <div class="piece-meta"><span>Master gráfico</span><span>Sistema</span></div>
+      </article>
+      <article class="piece piece-3">
+        <div class="piece-img"><img src="/images/brand-01.png" alt="Empaque grana cochinilla fina" loading="lazy" /></div>
+        <div class="piece-meta"><span>Etiqueta · Grana cochinilla fina</span><span>100g / 3.5 oz</span></div>
+      </article>
+      <article class="piece piece-4">
+        <div class="piece-img"><img src="/images/app-poster.png" alt="Poster Descubre el color del legado mexicano" loading="lazy" /></div>
+        <div class="piece-meta"><span>Poster · Suaje protectoras</span><span>2024</span></div>
+      </article>
+      <article class="piece piece-5">
+        <div class="piece-img"><img src="/images/brand-03.png" alt="Pieza gráfica" loading="lazy" /></div>
+        <div class="piece-meta"><span>Flyer editorial</span><span>Sistema</span></div>
+      </article>
+    </div>
+  </section>
+
   <!-- BRIDGE -->
-  <section class="bridge">
+  <section class="bridge" id="visita">
     <div class="bridge-text">
+      <p class="eyebrow bridge-eyebrow">Continúa el legado</p>
       <h2 class="bridge-heading">Visita<br/>Nocheztlicalli</h2>
-      <p class="bridge-body">Casa de la Grana nació como proyecto académico en CEDIM 2024. Hoy, la investigación y el espíritu continúan vivos a través de Nocheztlicalli.</p>
+      <p class="bridge-body">El proyecto continúa vivo a través de Nocheztlicalli, donde se preservan la investigación, el cultivo y la enseñanza del rojo más antiguo de México.</p>
       <div class="bridge-btns">
-        <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="btn btn-grana">nocheztlicalli.com</a>
-        <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">@nocheztlicalli</a>
+        <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer" class="btn btn-square-light">nocheztlicalli.com</a>
+        <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer" class="btn btn-square-light">@nocheztlicalli</a>
       </div>
     </div>
     <div class="bridge-img">
@@ -1154,20 +1293,31 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
   <!-- FOOTER -->
   <footer id="contacto">
-    <div class="footer-contact">
-      <address style="font-style:normal;">
-        Nardos #616, Col. Ampliación Santa Lucía<br/>
-        Santa Lucía del Camino, Oaxaca, México<br/><br/>
-        <a href="tel:9515702818">951 570 2818</a><br/>
-        <a href="mailto:casadelagrana@gmail.com">casadelagrana@gmail.com</a>
+    <div class="footer-col">
+      <h3>Casa de la Grana</h3>
+      <address>
+        Nardos #616<br/>
+        Col. Ampliación Santa Lucía<br/>
+        71228 Santa Lucía del Camino<br/>
+        Oaxaca, México
       </address>
     </div>
-    <div class="footer-logo">
-      <img src="/images/logo-negro.svg" alt="Casa de la Grana" />
-      <span class="footer-sub">Centro cultural &middot; Oaxaca</span>
+    <div class="footer-col">
+      <h3>Contacto</h3>
+      <a href="tel:9515702818">951 570 2818</a>
+      <a href="mailto:casadelagrana@gmail.com">casadelagrana@gmail.com</a>
     </div>
-    <div class="footer-copy">
-      <p>&copy; {new Date().getFullYear()}</p>
+    <div class="footer-col">
+      <h3>Vínculos</h3>
+      <a href="https://nocheztlicalli.com" target="_blank" rel="noopener noreferrer">Nocheztlicalli</a>
+      <a href="https://www.instagram.com/nocheztlicalli/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-logo">
+        <img src="/images/logo-rojo.svg" alt="Casa de la Grana" />
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Casa de la Grana</p>
     </div>
   </footer>
 
