@@ -24,6 +24,20 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       font-display: swap;
     }
     @font-face {
+      font-family: 'Chivo';
+      src: url('/fonts/Chivo-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Chivo';
+      src: url('/fonts/Chivo-Italic-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
       font-family: 'Koper';
       src: url('/fonts/Koper-Regular.otf') format('opentype');
       font-weight: 400;
@@ -43,6 +57,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       --text-muted-inv:  rgba(247,243,240,0.45);
 
       --font-mono:    'ChivoMono', monospace;
+      --font-sans:    'Chivo', sans-serif;
       --font-serif:   'Koper', serif;
 
       --w-heavy:  900;
@@ -175,7 +190,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .menu-item::before,
     .menu-item::after {
       display: inline-block;
-      color: var(--text-grana);
       transition: padding var(--dur) var(--ease);
     }
     .menu-item:hover::before { padding-right: 0.5em; }
@@ -710,6 +724,58 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       color: var(--text-light);
     }
 
+    /* ---- SHARED ---- */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-weight: var(--w-base);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-grana);
+    }
+
+    /* ---- PROYECTO ---- */
+    .proyecto {
+      background: var(--surface-cream);
+      padding: var(--space-2xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: var(--space-lg);
+      min-height: 90vh;
+    }
+    .proyecto-eyebrow {
+      grid-column: 1 / 2;
+      grid-row: 1;
+      align-self: start;
+    }
+    .proyecto-title {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      font-family: var(--font-serif);
+      font-weight: var(--w-medium);
+      font-size: clamp(3.5rem, 11vw, 11rem);
+      line-height: 0.88;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-top: var(--space-md);
+    }
+    .proyecto-body {
+      grid-column: 2 / 3;
+      grid-row: 3;
+      justify-self: end;
+      max-width: 46ch;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-top: var(--space-xl);
+    }
+    .proyecto-body p + p { margin-top: 1.2em; }
+    .proyecto-body em { font-style: italic; color: var(--text-grana); }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .nav { padding: var(--space-sm); }
@@ -814,6 +880,21 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     <div class="intro-footer">
       <span>C. Nardos 616, Ampliación Sta Lucía, 71228 Santa Lucía del Camino, Oax.</span>
       <a href="/">casadelagrana.com</a>
+    </div>
+  </section>
+
+  <!-- EL PROYECTO -->
+  <section class="proyecto">
+    <p class="eyebrow proyecto-eyebrow">01 / El proyecto</p>
+    <h2 class="proyecto-title">
+      Nuestro<br/>
+      pasado<br/>
+      en la<br/>
+      actualidad
+    </h2>
+    <div class="proyecto-body">
+      <p>Casa de la Grana es un centro cultural en Santa Lucía del Camino, Oaxaca, dedicado a preservar el cultivo tradicional de la grana cochinilla y compartir su significado histórico.</p>
+      <p>Un espacio donde el conocimiento científico se entrelaza con la experiencia creativa y la memoria comunitaria. Desde aquí rescatamos el legado de <em>Nocheztlicalli</em>, el insecto sagrado que tiñó imperios y continúa siendo fuente de vida y arte para la comunidad oaxaqueña.</p>
     </div>
   </section>
 
