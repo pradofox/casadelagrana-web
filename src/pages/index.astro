@@ -785,7 +785,8 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     }
     .grana-img {
       overflow: hidden;
-      position: relative;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
     }
     .grana-img img {
       width: 100%;
@@ -794,6 +795,8 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       object-position: center;
       display: block;
     }
+    .grana-img img:first-child { object-position: center 40%; }
+    .grana-img img:last-child  { object-position: center 60%; }
     .grana-content {
       padding: var(--space-2xl) var(--space-lg);
       display: flex;
@@ -1101,8 +1104,9 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
       /* GRANA */
       .grana { grid-template-columns: 1fr; min-height: auto; }
-      .grana-img { min-height: 56vw; max-height: 320px; }
-      .grana-img img { object-position: center 30%; }
+      .grana-img { min-height: auto; grid-template-rows: 52vw 52vw; }
+      .grana-img img:first-child { object-position: center 40%; }
+      .grana-img img:last-child  { object-position: center 60%; }
       .grana-content { padding: var(--space-xl) var(--space-md); }
       .cedula { grid-template-columns: 88px 1fr; }
 
@@ -1139,8 +1143,6 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
         grid-row: auto;
       }
 
-      /* PHOTO BREAK */
-      .photo-break { height: 56vw; }
 
       /* BRIDGE */
       .bridge { grid-template-columns: 1fr; }
@@ -1227,14 +1229,11 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </div>
   </section>
 
-  <div class="photo-break">
-    <img src="/images/foto-nopaleras.jpg" alt="Nopaleras con grana cochinilla en el recinto de Nocheztlicalli" loading="lazy" />
-  </div>
-
   <!-- LA GRANA / NOCHEZTLICALLI -->
   <section class="grana" id="legado">
     <div class="grana-img">
       <img src="/images/foto-yolanda.jpg" alt="Maestra Yolanda mostrando grana cochinilla en sus manos" loading="lazy" />
+      <img src="/images/foto-nopaleras.jpg" alt="Nopaleras con grana cochinilla" loading="lazy" />
     </div>
     <div class="grana-content">
       <div>
