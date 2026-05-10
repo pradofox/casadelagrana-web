@@ -1184,6 +1184,9 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       will-change: transform, opacity;
       user-select: none;
     }
+    @media (max-width: 767px) {
+      .lw { font-size: 9vw; }
+    }
   </style>
 </head>
 
@@ -1435,8 +1438,10 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     //
     //   [0] = DESCUBRE   [1] = EL   [2] = SECRETO
 
-    // [0]=DESCUBRE  [1]=EL  [2]=SECRETO — offsets [x,y] desde el centro.
-    // Mismas composiciones en todos los viewports.
+    // Composiciones diseñadas a 1200px de referencia.
+    // Se escalan proporcionalmente para que se vean igual en cualquier viewport.
+    const s = Math.min(1, window.innerWidth / 1200);
+
     const comps = [
       // A — DESCUBRE izq-arriba, EL der flotando, SECRETO abajo-izq
       [[-180, -100], [260,   8], [ -60, 100]],
@@ -1444,7 +1449,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       [[ 140,  -95], [-250,  8], [ 100, 100]],
       // C — DESCUBRE arriba, EL y SECRETO en el mismo renglón abajo
       [[ -40, -105], [-260, 90], [ 120,  90]],
-    ];
+    ].map(comp => comp.map(([x, y]) => [x * s, y * s]));
 
     const loader = document.getElementById('loader');
     const words  = ['lw-a', 'lw-b', 'lw-c'].map(id => document.getElementById(id));
