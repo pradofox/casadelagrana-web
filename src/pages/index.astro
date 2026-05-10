@@ -1442,13 +1442,14 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     // Se escalan proporcionalmente para que se vean igual en cualquier viewport.
     const s = Math.min(1, window.innerWidth / 1200);
 
+    // Renglones fijos: y ∈ { -100, 0, 100 }. Sin valores intermedios.
     const comps = [
-      // A — DESCUBRE izq-arriba, EL der flotando, SECRETO abajo-izq
-      [[-180, -100], [260,   8], [ -60, 100]],
-      // B — DESCUBRE der-arriba, EL izq flotando, SECRETO abajo-der
-      [[ 140,  -95], [-250,  8], [ 100, 100]],
-      // C — DESCUBRE arriba, EL y SECRETO en el mismo renglón abajo
-      [[ -40, -105], [-260, 90], [ 120,  90]],
+      // A — DESCUBRE arriba-izq · EL medio-der · SECRETO abajo-izq
+      [[-180, -100], [ 260,   0], [ -60, 100]],
+      // B — DESCUBRE arriba-der · EL medio-izq · SECRETO abajo-der
+      [[ 140, -100], [-250,   0], [ 100, 100]],
+      // C — DESCUBRE arriba · EL y SECRETO en el mismo renglón abajo
+      [[ -40, -100], [-260, 100], [ 120, 100]],
     ].map(comp => comp.map(([x, y]) => [x * s, y * s]));
 
     const loader = document.getElementById('loader');
