@@ -1160,10 +1160,41 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
     }
+    /* ---- LOADER ---- */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--surface-cream);
+      z-index: 9999;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .lw {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 9vw, 8.5rem);
+      font-weight: var(--w-medium);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--text-dark);
+      line-height: 1;
+      white-space: nowrap;
+      will-change: transform, opacity;
+      user-select: none;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- LOADER -->
+  <div id="loader" aria-hidden="true">
+    <span class="lw" id="lw-a">Descubre</span>
+    <span class="lw" id="lw-b">El</span>
+    <span class="lw" id="lw-c">Secreto</span>
+  </div>
 
   <!-- NAV -->
   <nav class="nav" id="nav" aria-label="Principal">
@@ -1394,6 +1425,90 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </div>
   </footer>
 
+
+  <script>
+    import { gsap } from 'gsap';
+
+    // ── LOADER ──────────────────────────────────────────────────────────────
+    // Tres composiciones tipográficas planeadas para DESCUBRE / EL / SECRETO.
+    // Cada entrada: [x, y] offset en px desde el centro del viewport.
+    //
+    //   [0] = DESCUBRE   [1] = EL   [2] = SECRETO
+
+    const mob = window.innerWidth < 768;
+
+    const comps = mob
+      ? [
+          // A — diagonal: DESCUBRE izq-arriba, EL der, SECRETO centro-abajo
+          [[-48, -72], [72, 2], [6, 72]],
+          // B — inversión: DESCUBRE der-arriba, EL izq, SECRETO der-abajo
+          [[32, -72], [-74, 2], [24, 72]],
+          // C — convergencia suave, más cerca
+          [[-38, -68], [58, 2], [-4, 68]],
+        ]
+      : [
+          // A — apertura: DESCUBRE izq-arriba, EL der flotando, SECRETO abajo-centro
+          [[-180, -100], [260, 8], [-60, 100]],
+          // B — inversión: DESCUBRE sube derecha, EL vuela izq, SECRETO baja derecha
+          [[80, -90], [-280, 8], [80, 90]],
+          // C — convergencia: palabras se acercan al eje central
+          [[-120, -80], [180, 0], [-20, 80]],
+        ];
+
+    const loader = document.getElementById('loader');
+    const words  = ['lw-a', 'lw-b', 'lw-c'].map(id => document.getElementById(id));
+
+    // Posición inicial = comp A, invisible
+    words.forEach((el, i) => {
+      gsap.set(el, {
+        xPercent: -50,
+        yPercent: -50,
+        x: comps[0][i][0],
+        y: comps[0][i][1],
+        opacity: 0,
+      });
+    });
+
+    const tl = gsap.timeline();
+
+    // Fade-in escalonado en comp A
+    tl.to(words, {
+      opacity: 1,
+      duration: 0.45,
+      stagger: 0.1,
+      ease: 'power2.out',
+    })
+
+    // A → B
+    .to(words, {
+      x: (i) => comps[1][i][0],
+      y: (i) => comps[1][i][1],
+      duration: 1.0,
+      stagger: 0.07,
+      ease: 'power3.inOut',
+      delay: 0.55,
+    })
+
+    // B → C
+    .to(words, {
+      x: (i) => comps[2][i][0],
+      y: (i) => comps[2][i][1],
+      duration: 0.95,
+      stagger: 0.07,
+      ease: 'power3.inOut',
+      delay: 0.5,
+    })
+
+    // Fade-out del loader
+    .to(loader, {
+      opacity: 0,
+      duration: 0.55,
+      ease: 'power2.inOut',
+      delay: 0.45,
+      onComplete: () => loader.remove(),
+    });
+    // ── /LOADER ─────────────────────────────────────────────────────────────
+  </script>
 
   <script>
     import Lenis from 'lenis';
