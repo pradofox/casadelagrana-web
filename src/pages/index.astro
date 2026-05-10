@@ -1437,22 +1437,25 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
     const mob = window.innerWidth < 768;
 
+    // [0]=DESCUBRE  [1]=EL  [2]=SECRETO — offsets [x,y] desde el centro.
+    // Las tres composiciones mantienen el mismo "aire" entre palabras,
+    // solo cambia el arreglo espacial.
     const comps = mob
       ? [
-          // A — diagonal: DESCUBRE izq-arriba, EL der, SECRETO centro-abajo
-          [[-48, -72], [72, 2], [6, 72]],
-          // B — inversión: DESCUBRE der-arriba, EL izq, SECRETO der-abajo
-          [[32, -72], [-74, 2], [24, 72]],
-          // C — convergencia suave, más cerca
-          [[-38, -68], [58, 2], [-4, 68]],
+          // A — DESCUBRE izq-arriba, EL der-medio, SECRETO centro-abajo
+          [[-48, -72], [72,  2], [  6, 72]],
+          // B — DESCUBRE der-arriba, EL izq-medio, SECRETO izq-abajo
+          [[ 34, -72], [-70, 2], [-30, 72]],
+          // C — DESCUBRE centro-arriba, EL der-abajo, SECRETO izq-abajo
+          [[ -8, -72], [ 64, 40], [-52, 72]],
         ]
       : [
-          // A — apertura: DESCUBRE izq-arriba, EL der flotando, SECRETO abajo-centro
-          [[-180, -100], [260, 8], [-60, 100]],
-          // B — inversión: DESCUBRE sube derecha, EL vuela izq, SECRETO baja derecha
-          [[80, -90], [-280, 8], [80, 90]],
-          // C — convergencia: palabras se acercan al eje central
-          [[-120, -80], [180, 0], [-20, 80]],
+          // A — DESCUBRE izq-arriba, EL der flotando, SECRETO abajo-izq
+          [[-180, -100], [260,   8], [ -60, 100]],
+          // B — DESCUBRE der-arriba, EL izq flotando, SECRETO abajo-der
+          [[ 140,  -95], [-250,  8], [ 100, 100]],
+          // C — DESCUBRE arriba-centro, EL abajo-izq, SECRETO der-abajo
+          [[ -40, -105], [-200, 80], [ 160,  95]],
         ];
 
     const loader = document.getElementById('loader');
@@ -1474,8 +1477,8 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     // Fade-in escalonado en comp A
     tl.to(words, {
       opacity: 1,
-      duration: 0.45,
-      stagger: 0.1,
+      duration: 0.3,
+      stagger: 0.08,
       ease: 'power2.out',
     })
 
@@ -1483,28 +1486,28 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .to(words, {
       x: (i) => comps[1][i][0],
       y: (i) => comps[1][i][1],
-      duration: 1.0,
-      stagger: 0.07,
+      duration: 0.75,
+      stagger: 0.05,
       ease: 'power3.inOut',
-      delay: 0.55,
+      delay: 0.35,
     })
 
     // B → C
     .to(words, {
       x: (i) => comps[2][i][0],
       y: (i) => comps[2][i][1],
-      duration: 0.95,
-      stagger: 0.07,
+      duration: 0.7,
+      stagger: 0.05,
       ease: 'power3.inOut',
-      delay: 0.5,
+      delay: 0.35,
     })
 
     // Fade-out del loader
     .to(loader, {
       opacity: 0,
-      duration: 0.55,
+      duration: 0.4,
       ease: 'power2.inOut',
-      delay: 0.45,
+      delay: 0.3,
       onComplete: () => loader.remove(),
     });
     // ── /LOADER ─────────────────────────────────────────────────────────────
