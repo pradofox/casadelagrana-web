@@ -1230,10 +1230,77 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     @media (max-width: 767px) {
       .lw { font-size: 9vw; }
     }
+
+    /* ---- LIGHTBOX ---- */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.96);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    #lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #lb-img {
+      max-width: min(90vw, 1400px);
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+      user-select: none;
+    }
+    #lb-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.15s;
+      font-family: var(--font-mono);
+    }
+    #lb-close:hover { color: #fff; }
+    #lb-prev, #lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.45);
+      font-size: 2.5rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      transition: color 0.15s;
+      user-select: none;
+      font-family: var(--font-mono);
+    }
+    #lb-prev:hover, #lb-next:hover { color: #fff; }
+    #lb-prev { left: 0; }
+    #lb-next { right: 0; }
+    .lb-open img { cursor: zoom-in; }
   </style>
 </head>
 
 <body>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="lb-close" aria-label="Cerrar">×</button>
+    <button id="lb-prev"  aria-label="Anterior">‹</button>
+    <img id="lb-img" src="" alt="" />
+    <button id="lb-next"  aria-label="Siguiente">›</button>
+  </div>
 
   <!-- LOADER -->
   <div id="loader" aria-hidden="true">
@@ -1523,6 +1590,9 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     const loader = document.getElementById('loader');
     const words  = ['lw-a', 'lw-b', 'lw-c'].map(id => document.getElementById(id));
 
+    // Bloquear scroll durante el loader
+    document.body.style.overflow = 'hidden';
+
     // Posición inicial = comp A, invisible
     words.forEach((el, i) => {
       gsap.set(el, {
@@ -1536,11 +1606,11 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
 
     const tl = gsap.timeline();
 
-    // Fade-in escalonado en comp A
+    // Fade-in rápido en comp A
     tl.to(words, {
       opacity: 1,
-      duration: 0.3,
-      stagger: 0.08,
+      duration: 0.14,
+      stagger: 0.05,
       ease: 'power2.out',
     })
 
@@ -1548,29 +1618,33 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .to(words, {
       x: (i) => comps[1][i][0],
       y: (i) => comps[1][i][1],
-      duration: 0.75,
-      stagger: 0.05,
+      duration: 0.42,
+      stagger: 0.03,
       ease: 'power3.inOut',
-      delay: 0.35,
+      delay: 0.12,
     })
 
     // B → C
     .to(words, {
       x: (i) => comps[2][i][0],
       y: (i) => comps[2][i][1],
-      duration: 0.7,
-      stagger: 0.05,
+      duration: 0.38,
+      stagger: 0.03,
       ease: 'power3.inOut',
-      delay: 0.35,
+      delay: 0.14,
     })
 
-    // Fade-out del loader
+    // Fade-out
     .to(loader, {
       opacity: 0,
-      duration: 0.4,
+      duration: 0.22,
       ease: 'power2.inOut',
-      delay: 0.3,
-      onComplete: () => loader.remove(),
+      delay: 0.1,
+      onComplete: () => {
+        loader.remove();
+        document.body.style.overflow = '';
+        if (window.__lenis) window.__lenis.start();
+      },
     });
     // ── /LOADER ─────────────────────────────────────────────────────────────
   </script>
@@ -1584,6 +1658,9 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       smoothWheel: true,
     });
     window.__lenis = lenis;
+
+    // Pausar Lenis mientras corre el loader
+    if (document.getElementById('loader')) lenis.stop();
 
     const nav = document.getElementById('nav');
     lenis.on('scroll', ({ scroll }) => {
@@ -1610,6 +1687,58 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       if (e.key === 'Escape' && menuOverlay.classList.contains('open')) setMenu(false);
     });
     menuOverlay.querySelectorAll('.menu-item').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+    // ── LIGHTBOX ─────────────────────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+
+    // Todas las imágenes de contenido (excluye logos y decorativas)
+    const lbImages = [
+      ...document.querySelectorAll(
+        '.fg img, .grana-img img, .piece-img img, .bridge-img img'
+      )
+    ];
+    let lbIdx = 0;
+
+    const openLB = (idx) => {
+      lbIdx = idx;
+      lbImg.src = lbImages[idx].src;
+      lbImg.alt = lbImages[idx].alt;
+      lightbox.classList.add('open');
+      lightbox.removeAttribute('aria-hidden');
+      lenis.stop();
+    };
+
+    const closeLB = () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lenis.start();
+    };
+
+    lbImages.forEach((img, i) => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => openLB(i));
+    });
+
+    document.getElementById('lb-close').addEventListener('click', closeLB);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
+
+    document.getElementById('lb-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLB((lbIdx - 1 + lbImages.length) % lbImages.length);
+    });
+    document.getElementById('lb-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLB((lbIdx + 1) % lbImages.length);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')     closeLB();
+      if (e.key === 'ArrowLeft')  openLB((lbIdx - 1 + lbImages.length) % lbImages.length);
+      if (e.key === 'ArrowRight') openLB((lbIdx + 1) % lbImages.length);
+    });
+    // ── /LIGHTBOX ────────────────────────────────────────────────────────────
   </script>
 
 </body>
