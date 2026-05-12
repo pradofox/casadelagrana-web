@@ -1086,6 +1086,92 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     .fg-6 { grid-column: 8 / 13;   height: 50vh; }  /* figurines */
     .fg-7 { grid-column: 1 / -1;   height: 52vh; }  /* polvo-rojo — cierre */
 
+    /* ---- COLECCIÓN ---- */
+    .coleccion {
+      background: var(--text-dark);
+      color: var(--text-light);
+    }
+    .coleccion-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      padding: var(--space-2xl) var(--space-xl);
+      align-items: end;
+    }
+    .coleccion-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted-inv);
+      margin-bottom: var(--space-md);
+      display: block;
+    }
+    .coleccion-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 7vw, 7.5rem);
+      line-height: 1;
+      color: var(--text-light);
+      letter-spacing: -0.02em;
+    }
+    .coleccion-body {
+      font-family: var(--font-sans);
+      font-weight: var(--w-base);
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      line-height: 1.72;
+      color: rgba(247,243,240,0.62);
+    }
+    .coleccion-body p + p { margin-top: var(--space-md); }
+    .coleccion-hero {
+      width: 100%;
+      height: 72vh;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .coleccion-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+      transition: transform 1s ease;
+    }
+    .coleccion-hero:hover img { transform: scale(1.03); }
+    .coleccion-lookbook {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      background: var(--text-dark);
+    }
+    .cl {
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      margin: 0;
+    }
+    .cl img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    .cl:hover img { transform: scale(1.04); }
+    .coleccion-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg) var(--space-xl);
+      border-top: 1px solid rgba(247,243,240,0.08);
+    }
+    .coleccion-footer-text {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--text-muted-inv);
+    }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 768px) {
       /* float nav oculto en móvil */
@@ -1186,6 +1272,21 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
       }
       .fg-1 { height: 56vw; }
       .fg-7 { height: 52vw; }
+
+      /* COLECCIÓN */
+      .coleccion-header {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl) var(--space-md);
+        gap: var(--space-lg);
+      }
+      .coleccion-hero { height: 52vw; }
+      .coleccion-lookbook { grid-template-columns: repeat(2, 1fr); }
+      .coleccion-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-md) var(--space-md);
+      }
 
       /* BRIDGE */
       .bridge { grid-template-columns: 1fr; }
@@ -1517,6 +1618,50 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     </figure>
   </section>
 
+  <!-- COLECCIÓN LA TIERRA EN MATICES -->
+  <section class="coleccion" aria-label="Colección La Tierra en Matices">
+    <div class="coleccion-header">
+      <div class="coleccion-title-block">
+        <span class="coleccion-label">Colección textil</span>
+        <h2 class="coleccion-title">La Tierra<br/>en Matices</h2>
+      </div>
+      <div class="coleccion-body">
+        <p>Una colección que nace del concepto rector de Casa de la Grana: <em>Binigulaza - transformar para preservar.</em> La grana cochinilla, fuente de uno de los rojos más antiguos del mundo, se convierte en pigmento vivo que tiñe seda, lino y algodón en una paleta que va del melocotón al carmín profundo.</p>
+        <p>Cada pieza es una edición limitada elaborada con técnicas de inmersión directa y shibori, produciendo degradados únicos e irrepetibles. Un diálogo entre la funcionalidad, el oficio artesanal y la expresión contemporánea.</p>
+      </div>
+    </div>
+
+    <div class="coleccion-hero">
+      <img src="/images/moda-campo-oaxaca.jpg" alt="Paisaje oaxaqueño — campos abiertos con la Sierra Sur al fondo" loading="lazy" />
+    </div>
+
+    <div class="coleccion-lookbook">
+      <figure class="cl">
+        <img src="/images/moda-camisa-casual.jpg" alt="Camisa Casual — algodón 100%, teñido con grana al 50% de saturación" loading="lazy" />
+      </figure>
+      <figure class="cl">
+        <img src="/images/moda-top-tirantes.jpg" alt="Top de Tirantes Selecto — seda con degradado de grana cochinilla" loading="lazy" />
+      </figure>
+      <figure class="cl">
+        <img src="/images/moda-top-modular.jpg" alt="Top Modular Asimétrico Selecto — seda cruda teñida al 100% de saturación" loading="lazy" />
+      </figure>
+      <figure class="cl">
+        <img src="/images/moda-chaleco-lino.jpg" alt="Chaleco de Lino Selecto — lino con baño de taninos y grana cochinilla" loading="lazy" />
+      </figure>
+      <figure class="cl">
+        <img src="/images/moda-top-seda.jpg" alt="Top de Tirantes Selecto — seda con degradado de grana" loading="lazy" />
+      </figure>
+      <figure class="cl">
+        <img src="/images/moda-vestido-degradado.jpg" alt="Vestido Degradado Selecto — seda teñida al 100%, mordentado modificado" loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="coleccion-footer">
+      <span class="coleccion-footer-text">Seda &middot; Lino &middot; Algodón</span>
+      <span class="coleccion-footer-text">Teñidos con grana cochinilla &middot; Oaxaca, México</span>
+    </div>
+  </section>
+
   <!-- BRIDGE -->
   <section class="bridge" id="visita">
     <div class="bridge-text">
@@ -1695,7 +1840,7 @@ const description = "Centro cultural dedicado a la preservación de la grana coc
     // Todas las imágenes de contenido (excluye logos y decorativas)
     const lbImages = [
       ...document.querySelectorAll(
-        '.fg img, .grana-img img, .piece-img img, .bridge-img img'
+        '.fg img, .grana-img img, .piece-img img, .bridge-img img, .cl img, .coleccion-hero img'
       )
     ];
     let lbIdx = 0;
